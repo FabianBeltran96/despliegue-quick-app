@@ -62,11 +62,9 @@ export default {
   },
   methods: {
     getTotalMedals: async function () {
-      let tokenStr = localStorage.getItem("token");
-
-      let url = `http://localhost:8000/athletes`;
+      let url = `https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinners.json`;
       axios
-        .get(url, { headers: { Authorization: `Bearer ${tokenStr}` } })
+        .get(url)
         .then((response) => {
           this.athletes = response.data;
           let resultGold = [];
