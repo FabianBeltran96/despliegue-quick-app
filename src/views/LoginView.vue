@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import store from "../store/index.js";
 export default {
   name: "LoginView",
   data() {
@@ -33,28 +35,18 @@ export default {
   },
   methods: {
     iniciarSesion: async function () {
-      if (this.email === "admin@email.com") {
-        localStorage.setItem(
-          "token",
-          `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibWFpbCI6ImFkbWluQGVtYWlsLmNvbSIsInVzZXJ0eXBlIjoiYWRtaW4iLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjYxNzQwMjUzLCJleHAiOjE2NzE3NDM4NTN9.IAqMRlFmLqyMw-AEa0-fawYEUNTESeBN_SKfNFNwujc
-`
-        );
-      } else if (this.email === "coordinador@email.com") {
-        localStorage.setItem(
-          "token",
-          `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibWFpbCI6ImNvb3JkaW5hZG9yQGVtYWlsLmNvbSIsInVzZXJ0eXBlIjoiY29vcmRpbmFkb3IiLCJ1c2VybmFtZSI6ImNvb3JkaW5hZG9yIiwiaWF0IjoxNjYxNzQwMjUzLCJleHAiOjE2NzE3NDM4NTN9.p-VdvnFua_ZFwwZfpF1lwkLUrhaSrxg2AQ3lO7bZyZ0`
-        );
-      }
+      localStorage.setItem("token", `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibWFpbCI6ImFkbWluQGVtYWlsLmNvbSIsInVzZXJ0eXBlIjoiYWRtaW4iLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjYxNzQwMjUzLCJleHAiOjE2NzE3NDM4NTN9.IAqMRlFmLqyMw-AEa0-fawYEUNTESeBN_SKfNFNwujc`);
+      store.commit("estaAutenticado");
       this.$router.push({ path: "/home" });
     },
   },
 
   created() {
-    // if (this.$store.getters.getEstaLogeado) {
-    //   this.$router.push({ path: "/home" });
-    // } else {
-    //   this.$router.push({ path: "/login" });
-    // }
+    if (this.$store.getters.getEstaLogeado) {
+      this.$router.push({ path: "/home" });
+    } else {
+      this.$router.push({ path: "/login" });
+    }
   },
 };
 </script>

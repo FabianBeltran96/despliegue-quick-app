@@ -138,9 +138,10 @@ export default {
 
   methods: {
     getInfo: async function () {
-      let url = `https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinners.json`;
+      let tokenStr = localStorage.getItem("token");
+      let url = `http://localhost:8000/athletes`;
       await axios
-        .get(url)
+        .get(url, { headers: { Authorization: `Bearer ${tokenStr}` } })
         .then((response) => {
           this.atletas = response.data;
         })
@@ -170,9 +171,11 @@ export default {
 
     triggerCountry(Country) {
       this.filtroPais = Country;
+      this.actualizarTabla();
     },
     triggerSport(Sport) {
       this.filtroDeporte = Sport;
+      this.actualizarTabla();
     },
 
     obtenerPaises() {
@@ -389,10 +392,10 @@ td {
 
 .utility-1 {
   cursor: pointer;
-  transition: cubic-bezier(0, 1.46, 1, -1.67) 1s;
+  transition: 1s;
 
   &:hover {
-    background: rgb(77, 203, 205);
+    background: rgb(245, 214, 60);
   }
 }
 </style>
